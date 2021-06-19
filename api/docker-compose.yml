@@ -7,16 +7,16 @@ services:
         depends_on: 
             - postgres
         environment: 
-            DATABASE_URL: postgres://docker:docker@postgres:5432/blog
+            DATABASE_URL: postgres://docker:docker@localhost:5432/blog
             NODE_ENV: development
-            PORT: 3000
+            PORT: 4000
         ports:
-            - "8080:3000"
+            - "4000:4000"
 
     postgres:
         image: postgres:10.4
         ports:
-            - "35000:5432"
+            - "5432:5432"
         environment: 
             POSTGRES_USER: docker
             POSTGRES_PASSWORD: docker

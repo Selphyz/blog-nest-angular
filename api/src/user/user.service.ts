@@ -23,7 +23,7 @@ export class UserService {
         newUser.role = user.role;
         newUser.email = user.email;
         newUser.password = passwordHash;
-        newUser.role = UserRole.USER;;
+        newUser.role = UserRole.USER;
         return from(this.userRepo.save(newUser)).pipe(
           map((user: User) => {
             const { password, ...res } = user;
@@ -37,6 +37,7 @@ export class UserService {
   findOne(id: number): Observable<User> {
     return from(this.userRepo.findOne({ id })).pipe(
       map((user: User) => {
+        console.log(user);        
         const { password, ...res } = user;
         return res;
       }),
@@ -85,21 +86,21 @@ export class UserService {
   }
   validateUser(email: string, password: string): Observable<User> {
     return this.findByMail(email).pipe(
-      switchMap((user: User) =>
-        this.authService.comparePasswords(password, user.password).pipe(
-          map((match: boolean) => {
-            if (match) {
-              const { password, ...res } = user;
-              return res;
-            } else {
-              throw Error;
-            }
-          }),
-        ),
-      ),
-    );
+        switchMap((user: User) => this.authService.comparePasswords(password, user.password).pipe(
+            map((match: boolean) => {
+                if(match) {
+                    const {password, ...result} = user;
+                    return result;
+                } else {
+                    throw Error;
+                }
+            })
+        )
+      )
+    )
   }
+
   findByMail(email: string): Observable<User> {
-    return from(this.userRepo.findOne({ email }));
+    return from(this.userRepo.findOne({email}));
   }
 }
