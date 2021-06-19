@@ -1,22 +1,28 @@
-version: "3"
+version: "3.8"
 services:
     api:
         build:
             dockerfile: Dockerfile
             context: .
+            target: dev
+        volumes: 
+            - .:/carlos/src/app
+            - ./carlos/src/app/node_modules
+        command: npm run start:dev
         depends_on: 
             - postgres
         environment: 
             DATABASE_URL: postgres://docker:docker@localhost:5432/blog
             NODE_ENV: development
+            JWT_SECRET: D#B!^3asvcX2pgCfnm%w
             PORT: 4000
         ports:
-            - "4000:4000"
+            - 4000:4000
 
     postgres:
         image: postgres:10.4
         ports:
-            - "5432:5432"
+            - 5432:5432
         environment: 
             POSTGRES_USER: docker
             POSTGRES_PASSWORD: docker
