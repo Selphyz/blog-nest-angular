@@ -38,7 +38,7 @@ export class UserController {
   @Get()
   index( @Query('page') page: number = 1, @Query('limit') limit: number = 10,): Observable<Pagination<User>> {
       limit = limit > 100 ? 100 : limit;
-      return this.userService.pagination({page: Number(page), limit: Number(limit), route: 'http://localhost:4000/users'});
+      return this.userService.pagination({page: Number(page), limit: Number(limit), route: 'http://localhost:4000/api/users'});
   }
 
   @Put(':id')

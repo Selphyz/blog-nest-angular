@@ -1,6 +1,15 @@
-.example-icon {
-    padding: 0 14px;
+.header {
+    padding: 10px 0;
+    span{
+        margin-right: 10px;
+    }
+    .example-spacer {
+        flex: 1 1 auto;
+    }
+    .route{
+        margin: 0 3px;
+    }
 }
-.example-spacer {
-    flex: 1 1 auto;
+.mat-field {
+    margin-left: 20px;
 }
